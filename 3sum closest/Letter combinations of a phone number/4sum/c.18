@@ -1,0 +1,47 @@
+class Solution {
+public:
+    vector<vector<int>> fourSum(vector<int>& a, int t) {
+        vector<vector<int>> res;
+        int n = a.size();
+        if(n <=3)
+            return res;
+        sort(a.begin(),a.end());
+        set<vector<int>> s;
+        for(int i=0;i<n;i++)
+        {
+            int first = a[i];
+            for(int j=i+1;j<n;j++)
+            {
+                int second = a[j];
+                long long int summ = a[j]+first;
+                
+                int k = j+1;
+                int l = n-1;
+                
+                while(k<l)
+                {
+                    if(summ+a[k]+a[l] == t)
+                    {
+                        vector<int> vv= {first,second,a[k],a[l]};
+                        sort(vv.begin(),vv.end());
+                        
+                        s.insert(vv);
+                        l--;
+                        k++;
+                    }
+                    else if(summ+a[k]+a[l] > t)
+                        l--;
+                    else
+                        k++;
+                }
+            }
+        }
+        
+        
+        for(auto i: s)
+            res.push_back(i);
+        
+        return res;
+        
+    }
+};
