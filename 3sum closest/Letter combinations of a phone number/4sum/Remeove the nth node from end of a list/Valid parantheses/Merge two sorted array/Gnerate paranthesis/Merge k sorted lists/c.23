@@ -1,0 +1,43 @@
+class Solution {
+public:
+    ListNode* mergeKLists(vector<ListNode*>& lists) {
+        // Check if the input vector is empty.
+        if (lists.empty()) {
+            return nullptr;
+        }
+        // Initialize a priority queue to store the nodes of the linked lists.
+        priority_queue<ListNode*, vector<ListNode*>, CompareListNode> pq;
+        // Push the first node of each linked list into the priority queue.
+        for (auto list : lists) {
+            if (list != nullptr) {
+                pq.push(list);
+            }
+        }
+        // Create a dummy node to hold the merged linked list.
+        ListNode* dummy = new ListNode(0);
+        // Create a pointer to the current tail of the merged linked list.
+        ListNode* tail = dummy;
+        // Process the nodes in the priority queue until it is empty.
+        while (!pq.empty()) {
+            // Pop the node with the smallest value from the priority queue.
+            ListNode* node = pq.top();
+            pq.pop();
+            // Append the popped node to the merged linked list.
+            tail->next = node;
+            tail = tail->next;
+            // Push the next node of the popped node's linked list into the priority queue.
+            if (node->next != nullptr) {
+                pq.push(node->next);
+            }
+        }
+        // Return the merged linked list (excluding the dummy node).
+        return dummy->next;
+    }
+private:
+    // Define a custom comparison function for the priority queue.
+    struct CompareListNode {
+        bool operator()(const ListNode* a, const ListNode* b) const {
+            return a->val > b->val;
+        }
+    };
+};
