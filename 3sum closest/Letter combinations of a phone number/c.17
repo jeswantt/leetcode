@@ -1,0 +1,30 @@
+class Solution {
+public:
+    vector<string>v;
+    void fun(int i,string &digits,string s,vector<string>&ans)
+    {
+        
+        if(i==digits.size())
+        {
+            ans.push_back(s);
+            return ;
+        }
+             
+        for(int j=0;j<v[digits[i]-48].length();j++)
+        {
+            s.push_back(v[digits[i]-48][j]);
+            fun(i+1,digits,s,ans);
+            s.pop_back();
+        
+        }     
+    }
+    vector<string> letterCombinations(string digits) {
+      
+        vector<string>ans;
+        v={"","","abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"};
+  
+         if(digits.length()==0)
+             return ans;
+        fun(0,digits,"",ans);
+        
+        return ans;}};
