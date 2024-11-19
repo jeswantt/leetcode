@@ -1,0 +1,41 @@
+class Solution {
+public:
+    int threeSumClosest(vector<int>& nums, int target) {
+        //BRUTE FORCE APPROACH...(but a little improved)
+        //Applying two pointers on the sorted array for target-currnumber
+        //time complexity O(N^2)
+        
+        
+        int ans; //...Our Final sum(of all three integers) will be stored here
+        int prevDiff = INT_MAX; //...this will be the closest difference between target and the sum we calculated...this will be changed each time it is compared with a sum that is found to be lower than the previous closest sum
+        int temp = target;
+        sort(nums.begin(),nums.end()); //sorting the array inorder to carry out our two pointer approach
+        for(int i =0;i<nums.size()-2;i++){  //loop till nums.size()-2 because we always play with three pointers two of which we don't want to get out of the array
+                temp = target-nums[i]; //reducing the target to target-curr value(this curr value is one of the three integers we take into consideration)
+                int start = i+1;        // starting from one index ahead of curr index
+                int end = nums.size()-1;
+                int x;                  // for calculating and comparing with the new target value(temp)...this is similar as two sum problem..
+            
+        // so the idea here is to get the sum of two integers as closest as (or equal to ) the new target(temp) which is done by 
+        // keeping two pointers and changing their positions so as to get as close as possible to our new target value.
+                while(start<end){       
+                     x = nums[start]+nums[end];
+                    if(x==temp) break;      //breaking here ... cuz can't get any closer than the TARGET ITSELF!
+                    if(x<temp) start++;     //incase the sum is lower we shift start to right side so as to increase sum and get closer to our target value(temp)
+                    else end--; 
+                }
+            
+            //now here after this traversal we have obtained a value of sum of three integers as close to temp as possible
+            //this value is x + nums[i]
+            //we take the difference of target value (original) with this sum and compare this difference with previous difference(because we need to be as close to target as possible right!)
+            //if difference is less than prev diff we update our ans and prevDifference gets equal to this difference value..
+                if(abs(target-(x+nums[i]))<prevDiff){   
+                    ans = x+nums[i];
+                    prevDiff = abs(target-(x+nums[i]));
+                }
+
+        }
+        return ans; //hooray!
+        
+    }
+};
