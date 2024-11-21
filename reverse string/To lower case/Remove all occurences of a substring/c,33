@@ -1,0 +1,16 @@
+class Solution {
+public:
+    string removeOccurrences(string s, string part) {
+        
+        int n = s.size(); //size of the string s
+        
+        while(n!=0 && s.find(part)<n) /* Enter the loop only when the length of string is non-zero 
+											or if the string part is present and the index is of that
+											part should be less than the length of the string s */
+        
+        {
+            s.erase(s.find(part),part.length());  //erase the part from string s
+        }
+        return s;
+    }
+};
