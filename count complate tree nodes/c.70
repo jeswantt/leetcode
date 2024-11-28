@@ -1,0 +1,28 @@
+class Solution {
+public:
+    int height(TreeNode* root,bool l=false){
+        int ct=0;
+        while(root){
+            if(l){
+                root=root->right;
+            }
+            else{
+                root=root->left;
+            }
+            ct++;
+        }
+        return ct;
+    }
+    int solve(TreeNode* root){
+        if(!root)return 0;
+        int l=height(root);
+        int r=height(root,true);
+        if(l==r){
+            return (1<<l)-1;
+        }
+        return 1+solve(root->left)+solve(root->right);
+    }
+    int countNodes(TreeNode* root) {
+        return solve(root);
+    }
+};
