@@ -1,0 +1,23 @@
+class Solution {
+public:
+    bool containsNearbyDuplicate(vector<int>& nums, int k) {
+        map<int, bool> m;
+        if (k > nums.size()) k = nums.size();
+        for (int i = 0; i < k; i++) {  //making the window
+            if(m[nums[i]]) {
+                return true;
+            } else {
+                m[nums[i]] = true;
+            }
+        }
+        for (int i = k; i < nums.size(); i++) {  //sliding the window
+            if (m[nums[i]]) {
+                return true;
+            } else {
+                m[nums[i]] = true;
+                m[nums[i-k]] = false;
+            }
+        }
+        return false;
+    }
+};
