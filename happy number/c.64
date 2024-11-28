@@ -1,0 +1,28 @@
+class Solution {
+public:
+    bool isHappy(int n) {
+        set<int>s;
+        while(n!=1)
+        {
+            int k=n;
+            int sum=0;
+            while(k!=0)
+            {
+                int r=k%10;
+                sum+=(r*r);
+                k/=10;
+            }
+            if(s.find(sum)==s.end())
+            {
+                s.insert(sum);
+            }
+            else 
+            {
+                return false;
+                
+            }
+            n=sum;
+        }
+        return true;
+    }
+};
