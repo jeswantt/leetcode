@@ -1,0 +1,13 @@
+class Solution {
+public:
+    uint32_t reverseBits(uint32_t n) {
+        int result = 0;
+        
+        // Loop 16 times to shift left and rights bits of the given unsigned integer
+        for (int i = 0; i < 16; i++) {
+            result += (n >> (31 - 2*i) & (1 << i));
+            result += (n << (31 - 2*i) & (0x80000000 >> i));
+        }
+        return result;
+    }
+};
