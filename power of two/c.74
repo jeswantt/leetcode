@@ -1,0 +1,13 @@
+class Solution {
+public:
+    // function to do the same - just that can accept floats
+    bool double_isPowerOfTwo(double n){
+        if (n == 1) return true;
+        else if ((n < 1) || (n != int(n))) return false;
+        return double_isPowerOfTwo(n/2);
+    }
+    
+    bool isPowerOfTwo(int n) {
+        return double_isPowerOfTwo(n);
+    }
+};
