@@ -1,0 +1,35 @@
+class MyQueue {
+public:
+	stack<int> s1,s2;
+	MyQueue() {
+
+	}
+
+	void push(int x) {
+		while(!s1.empty())   // Till s1 is not empty push s1 elements to s2
+		{
+			s2.push(s1.top());
+			s1.pop();
+		}
+		s1.push(x);      //  s1 becomes empty so we can push x
+		while(!s2.empty())      // pop elements from s2 and push back to s1 to remember the first element, so that pop() will take O(1) .
+		{
+			s1.push(s2.top());
+			s2.pop();
+		}
+	}
+	int pop() {            // If S1 is not empty return Top element and Pop it from S1
+		if(s1.empty())  return -1;
+		int ans = s1.top();
+		s1.pop();
+		return ans;
+	}
+
+	int peek() {
+		return s1.empty()?-1:s1.top();   // If S1 is not empty return top of s1.
+	}
+
+	bool empty() {
+		return s1.empty();     // Using Stack Empty() return ans
+	}
+};
