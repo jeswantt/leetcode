@@ -1,0 +1,18 @@
+class Solution {
+private:
+    void solveInorder(TreeNode* root , vector<int> &ans){
+        //base case
+        if(root == NULL)
+            return ;
+        
+        solveInorder(root->left , ans);
+        ans.push_back(root->val);
+        solveInorder(root->right , ans);
+    }
+public:
+    vector<int> inorderTraversal(TreeNode* root) {
+        vector<int> ans;
+        solveInorder(root , ans);
+        return ans;
+    }
+};
