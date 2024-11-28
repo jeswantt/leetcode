@@ -1,0 +1,17 @@
+class Solution {
+public:    
+    vector<int> getRow(int rowIndex) {
+        vector<int> pTri;
+        long cur = 0;
+        long pre = 1; // nC0 = 1
+        pTri.emplace_back(pre);
+        
+        for(int r = 1; r <= rowIndex; r++) {
+            // Formula: nCr = (nCr-1 * (n - r + 1))/r
+            cur = (pre * (rowIndex - r + 1))/r;
+            pTri.emplace_back(cur);
+            pre = cur;
+        }
+        return pTri;   
+    }
+};
