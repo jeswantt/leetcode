@@ -1,0 +1,59 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
+        
+        
+        ListNode* temp1=headA;
+        ListNode* temp2=headB;
+        int list1Length=0, list2Length=0;
+        int extraLen;
+        
+        while (temp1){          // CALCULATE LENGTH OF FIRST LINKED LIST
+            list1Length++;
+            temp1=temp1->next;
+        }
+        
+        while (temp2){          // CALCULATE LENGTH OF SECOND LINKED LIST
+            list2Length++;
+            temp2=temp2->next;
+        }
+        
+        if (list1Length>list2Length){       // CHECK WHICH LINKED LIST IS BIGGER IN LENGTH
+            temp1=headA;
+            temp2=headB;
+            extraLen=list1Length-list2Length;   // SUBTRACT THE LENGTH OF BIGGER FROM SMALLER
+            while (extraLen){               // MOVE TEMP1 TO THE EXTRA STEPS SO THAT LINKED LIST BECOME OF SAME SIZE NOW
+                temp1=temp1->next;
+                extraLen--;
+            }
+        }
+        else{
+            temp1=headA;
+            temp2=headB;
+            extraLen=list2Length-list1Length;
+            while (extraLen){
+                temp2=temp2->next;      // IF SECOND LIST IS BIGGER IN LENGTH, TRAVEL EXTRA LENGTH SAME AS ABOVE SO THAT BOTH LINKED LIST CAN START FROM SAME POINT.
+                extraLen--;
+            }
+        }
+        
+        while (temp1 != temp2){         // CHECK TILL BOTH ARE NOT EQUAL
+            if (temp1->next == temp2->next){       // TO FIND IF THE NEXT NODE IS THE ONE WHICH IS INTERSECTION POINT
+                return temp1->next;           // IF YES, THEN RETURN THAT NODE
+            }
+            else{
+                temp1=temp1->next;      // ELSE INCREMENT BOTH TEMP
+                temp2=temp2->next;
+            }
+        }
+        return temp1;
+    }
+};
